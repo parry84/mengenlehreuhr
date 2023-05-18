@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0ca176fe-605e-44c8-82d6-74a1a5482020"
+      }
+    },
+    "owner": "parry84"
   }
 }
