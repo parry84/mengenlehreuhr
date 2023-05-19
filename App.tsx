@@ -29,12 +29,12 @@ type Mengenlehreuhr = {
   minute04: boolean;
 };
 
-function xxx(time: Date): Mengenlehreuhr {
+function encoder(time: Date): Mengenlehreuhr {
   const seconds = time.getSeconds();
   const minutes = time.getMinutes();
   const hours = time.getHours();
 
-  return({
+  return {
     second: seconds % 2 != 0,
     hour05: hours >= 5,
     hour10: hours >= 10,
@@ -59,45 +59,19 @@ function xxx(time: Date): Mengenlehreuhr {
     minute02: minutes % 5 >= 2,
     minute03: minutes % 5 >= 3,
     minute04: minutes % 5 >= 4,
-  });
+  };
 }
 
 export default function App() {
-  const [mengenlehreuhr, setMengenlehreuhr] = useState<Mengenlehreuhr>({
-    second: false,
-    hour05: false,
-    hour10: false,
-    hour15: false,
-    hour20: false,
-    hour01: false,
-    hour02: false,
-    hour03: false,
-    hour04: false,
-    minute05: false,
-    minute10: false,
-    minute15: false,
-    minute20: false,
-    minute25: false,
-    minute30: false,
-    minute35: false,
-    minute40: false,
-    minute45: false,
-    minute50: false,
-    minute55: false,
-    minute01: false,
-    minute02: false,
-    minute03: false,
-    minute04: false,
-  });
+  const time = new Date();
+  const [mengenlehreuhr, setMengenlehreuhr] = useState<Mengenlehreuhr>(
+    encoder(time)
+  );
 
   const updateMengenlehreuhr = () => {
     const time = new Date();
 
-    const seconds = time.getSeconds();
-    const minutes = time.getMinutes();
-    const hours = time.getHours();
-
-    setMengenlehreuhr(xxx(time));
+    setMengenlehreuhr(encoder(time));
   };
 
   setInterval(updateMengenlehreuhr, 1000);
