@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Svg, { Circle, Rect, Line } from "react-native-svg";
 
 type Mengenlehreuhr = {
   second: boolean;
@@ -62,6 +62,100 @@ function encoder(time: Date): Mengenlehreuhr {
   };
 }
 
+const redOff = "#91626F";
+const redOn = "#E7002A";
+
+const yellowOff = "#B8A873";
+const yellowOn = "#FFF500";
+
+const gray = "#CECECE";
+
+const shadow = "drop-shadow(3px 4px 2px rgb(0 0 0 / 0.4))";
+
+const Seconds = (mengenlehreuhr: Mengenlehreuhr) => {
+  return(
+    <>
+      <Circle cx="97.5px" cy={33} r={27} fill={mengenlehreuhr.second ? yellowOn : yellowOff} />
+      <Circle cx="97.5px" cy={33} r={29} stroke={gray} strokeWidth={5} fillOpacity={0} filter={shadow}/>
+    </>
+  );
+}
+
+const RowFiveHourPeriod = (mengenlehreuhr: Mengenlehreuhr) => {
+  const y = 75;
+  return(
+    <>
+      <Rect x={7} y={y} width={43} height={32} fill={mengenlehreuhr.hour05 ? redOn : redOff} />
+      <Rect x={50} y={y} width={43} height={32} fill={mengenlehreuhr.hour10 ? redOn : redOff} />
+      <Rect x={95} y={y} width={43} height={32} fill={mengenlehreuhr.hour15 ? redOn : redOff} />
+      <Rect x={142} y={y} width={43} height={32} fill={mengenlehreuhr.hour20 ? redOn : redOff} />
+
+      <Line x1={50} y1={y} x2={50} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Line x1={95} y1={y} x2={95} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Line x1={140} y1={y} x2={140} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Rect x={7} y={y} width={180} height={33} stroke="#CECECE" strokeWidth={5} rx={5} fillOpacity={0} filter={shadow} />
+    </>
+  );
+}
+
+const RowOneHourPeriod = (mengenlehreuhr: Mengenlehreuhr) => {
+  const y = 125;
+  return(
+    <>
+      <Rect x={7} y={y} width={43} height={32} fill={mengenlehreuhr.hour01 ? redOn : redOff} />
+      <Rect x={50} y={y} width={43} height={32} fill={mengenlehreuhr.hour02 ? redOn : redOff} />
+      <Rect x={95} y={y} width={43} height={32} fill={mengenlehreuhr.hour03 ? redOn : redOff} />
+      <Rect x={142} y={y} width={43} height={32} fill={mengenlehreuhr.hour04 ? redOn : redOff} />
+
+      <Line x1={50} y1={y} x2={50} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow} />
+      <Line x1={95} y1={y} x2={95} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow} />
+      <Line x1={140} y1={y} x2={140} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow} />
+      <Rect x={7} y={y} width={180} height={33} stroke="#CECECE" strokeWidth={5} rx={5} fillOpacity={0} filter={shadow} />
+    </>
+  );
+}
+
+const RowFiveMinutesPeriod = (mengenlehreuhr: Mengenlehreuhr) => {
+  const y = 175;
+  return(
+    <>
+      <Rect x={7} y={y} width={13} height={32} fill={mengenlehreuhr.minute05 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5} y={y} width={13} height={32} fill={mengenlehreuhr.minute10 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*2} y={y} width={13} height={32} fill={mengenlehreuhr.minute15 ? redOn : redOff} />
+      <Rect x={7+16.5*3} y={y} width={13} height={32} fill={mengenlehreuhr.minute20 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*4} y={y} width={13} height={32} fill={mengenlehreuhr.minute25 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*5} y={y} width={13} height={32} fill={mengenlehreuhr.minute30 ? redOn : redOff} />
+      <Rect x={7+16.5*6} y={y} width={13} height={32} fill={mengenlehreuhr.minute35 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*7} y={y} width={13} height={32} fill={mengenlehreuhr.minute40 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*8} y={y} width={13} height={32} fill={mengenlehreuhr.minute45 ? redOn : redOff} />
+      <Rect x={7+16.5*9} y={y} width={13} height={32} fill={mengenlehreuhr.minute50 ? yellowOn : yellowOff} />
+      <Rect x={7+16.5*10} y={y} width={13} height={32} fill={mengenlehreuhr.minute55 ? yellowOn : yellowOff} />
+
+      {[...Array(10)].map((_, i) =>
+        <Line key={i} x1={(i+1)*16.5+5} y1={y} x2={(i+1)*16.5+5} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      )}
+      <Rect x={7} y={y} width={180} height={33} stroke="#CECECE" strokeWidth={5} rx={5} fillOpacity={0} filter={shadow}  />
+    </>
+  );
+}
+
+const RowOneMinutePeriod = (mengenlehreuhr: Mengenlehreuhr) => {
+  const y = 225;
+  return(
+    <>
+      <Rect x={7} y={y} width={43} height={32} fill={mengenlehreuhr.minute01 ? yellowOn : yellowOff} />
+      <Rect x={50} y={y} width={43} height={32} fill={mengenlehreuhr.minute02 ? yellowOn : yellowOff} />
+      <Rect x={95} y={y} width={43} height={32} fill={mengenlehreuhr.minute03 ? yellowOn : yellowOff} />
+      <Rect x={142} y={y} width={43} height={32} fill={mengenlehreuhr.minute04 ? yellowOn : yellowOff} />
+
+      <Line x1={50} y1={y} x2={50} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Line x1={95} y1={y} x2={95} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Line x1={140} y1={y} x2={140} y2={y+32} stroke="#CECECE" strokeWidth={5} filter={shadow}  />
+      <Rect x={7} y={y} width={180} height={33} stroke="#CECECE" strokeWidth={5} rx={5} fillOpacity={0} filter={shadow}  />
+    </>
+  );
+}
+
 export default function App() {
   const time = new Date();
   const [mengenlehreuhr, setMengenlehreuhr] = useState<Mengenlehreuhr>(
@@ -78,9 +172,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <canvas></canvas>
-      <Image
-        source={require("./assets/images/background.png")}
+      <Svg
+        height="265"
+        width="195"
+        viewBox="0 0 195 265"
         style={{
           position: "absolute",
           left: 0,
@@ -89,272 +184,13 @@ export default function App() {
           height: 265,
           zIndex: -11,
         }}
-      />
-      <Image
-        source={require("./assets/images/second.png")}
-        style={{
-          position: "absolute",
-          left: 70,
-          top: 10,
-          width: 50,
-          height: 50,
-          display: mengenlehreuhr.second ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-left.png")}
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 78,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour05 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-middle.png")}
-        style={{
-          position: "absolute",
-          left: 54,
-          top: 78,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour10 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-middle.png")}
-        style={{
-          position: "absolute",
-          left: 98,
-          top: 78,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour15 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-right.png")}
-        style={{
-          position: "absolute",
-          left: 142,
-          top: 78,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour20 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-left.png")}
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 127,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour01 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-middle.png")}
-        style={{
-          position: "absolute",
-          left: 54,
-          top: 127,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour02 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-middle.png")}
-        style={{
-          position: "absolute",
-          left: 98,
-          top: 127,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour03 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/hour-right.png")}
-        style={{
-          position: "absolute",
-          left: 142,
-          top: 127,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.hour04 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-left.png")}
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute05 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 26,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute10 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-red.png")}
-        style={{
-          position: "absolute",
-          left: 42,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute15 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 58,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute20 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 74,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute25 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-red.png")}
-        style={{
-          position: "absolute",
-          left: 90,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute30 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 106,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute35 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 122,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute40 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-red.png")}
-        style={{
-          position: "absolute",
-          left: 138,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute45 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-yellow.png")}
-        style={{
-          position: "absolute",
-          left: 154,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute50 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-small-right.png")}
-        style={{
-          position: "absolute",
-          left: 170,
-          top: 176,
-          width: 10,
-          height: 27,
-          display: mengenlehreuhr.minute55 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-left.png")}
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 225,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.minute01 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-middle.png")}
-        style={{
-          position: "absolute",
-          left: 54,
-          top: 225,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.minute02 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-middle.png")}
-        style={{
-          position: "absolute",
-          left: 98,
-          top: 225,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.minute03 ? "flex" : "none",
-        }}
-      />
-      <Image
-        source={require("./assets/images/minute-right.png")}
-        style={{
-          position: "absolute",
-          left: 142,
-          top: 225,
-          width: 38,
-          height: 27,
-          display: mengenlehreuhr.minute04 ? "flex" : "none",
-        }}
-      />
-      <StatusBar style="auto" />
+      >
+        <Seconds {...mengenlehreuhr}/>
+        <RowFiveHourPeriod {...mengenlehreuhr}/>
+        <RowOneHourPeriod {...mengenlehreuhr}/>
+        <RowFiveMinutesPeriod {...mengenlehreuhr}/>
+        <RowOneMinutePeriod {...mengenlehreuhr}/>
+      </Svg>
     </View>
   );
 }
