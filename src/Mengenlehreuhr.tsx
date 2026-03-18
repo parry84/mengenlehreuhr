@@ -13,6 +13,7 @@ import {
   polar2Canvas,
   Easing,
   mix,
+  errr
 } from "@shopify/react-native-skia";
 
 type Mengenlehreuhr = {
